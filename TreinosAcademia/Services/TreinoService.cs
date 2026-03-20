@@ -32,6 +32,16 @@ namespace TreinosAcademia.Services
         {
             var treino = _mapper.Map<Treino>(novoTreino);
             await _repository.Adicionar(treino);
+
+            if (novoTreino.Exercicios.Any())
+            {
+                foreach(var teDto in novoTreino.Exercicios)
+                {
+                    teDto.TreinoId = treino.Id;
+                    await _exercicioService.AdicionarExercicioAoTreino(teDto);
+                }
+            }
+
             return _mapper.Map<TreinoResponseDTO>(treino);
         }
 
@@ -49,6 +59,11 @@ namespace TreinosAcademia.Services
         public async Task Remover(int id)
         {
             var treino = await ObterTreino(id);
+            foreach (var te in treino.TreinoExercicio)
+            {
+                _exercicioService.Remover(te.Id);
+            }
+
             await _repository.Remover(treino);
         }
 
