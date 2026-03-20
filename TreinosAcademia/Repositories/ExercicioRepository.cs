@@ -39,6 +39,7 @@ namespace TreinosAcademia.Repositories
 
         public async Task Atualizar(Exercicio exercicio)
         {
+            _context.Exercicios.Update(exercicio);
             await _context.SaveChangesAsync();
         }
     }

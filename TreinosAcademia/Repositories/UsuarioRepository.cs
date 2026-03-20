@@ -38,6 +38,7 @@ namespace TreinosAcademia.Repositories
 
         public async Task Atualizar(Usuario usuario)
         {
+            _context.Usuarios.Update(usuario);
             await _context.SaveChangesAsync();
         }
     }
