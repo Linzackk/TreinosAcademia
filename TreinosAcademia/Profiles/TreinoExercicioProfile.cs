@@ -8,7 +8,9 @@ namespace TreinosAcademia.Profiles
     {
         public TreinoExercicioProfile()
         {
-            CreateMap<TreinoExercicio, TreinoExercicioResponseDTO>();
+            CreateMap<TreinoExercicio, TreinoExercicioResponseDTO>()
+            .ForMember(dest => dest.ExercicioNome,
+                       opt => opt.MapFrom(src => src.Exercicio.Nome));
             CreateMap<TreinoExercicioCreateDTO, TreinoExercicio>();
             CreateMap<TreinoExercicioUpdateDTO, TreinoExercicio>();
         }
