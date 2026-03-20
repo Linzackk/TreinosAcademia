@@ -12,5 +12,19 @@ namespace TreinosAcademia.Data
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Treino>()
+                .HasMany(t => t.TreinoExercicio)
+                .WithOne(te => te.Treino)
+                .HasForeignKey(te => te.TreinoId);
+
+            modelBuilder.Entity<TreinoExercicio>()
+                .HasOne(te => te.Exercicio)
+                .WithMany()
+                .HasForeignKey(te => te.ExercicioId);
+
+        }
     }
 }
