@@ -29,6 +29,12 @@ namespace TreinosAcademia.Repositories
             return treinoExercicios;
         }
 
+        public async Task<TreinoExercicio> ObterPorId(int id)
+        {
+            var te = await _context.TreinosExercicios.FindAsync(id);
+            return te;
+        }
+
         public async Task Remover(TreinoExercicio treinoExercicio)
         {
             _context.TreinosExercicios.Remove(treinoExercicio);
